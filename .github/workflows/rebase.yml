@@ -1,4 +1,4 @@
-name: Automatic Rebase
+name: Automatic Rebase 
 on:
   push:
     branches:
@@ -14,18 +14,15 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
-      - name: git config
-        # env:
-        #   MY_EMAIL: ${{ secrets.EMAIL }}
-        #   MY_NAME: ${{ secrets.NAME }}
+      - name: Git config
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
-      - name: checkout staging
-        run: git checkout staging
-      - name: rebase main
-        run: git rebase main
-      - name: push
+      - name: Rebase main
+        run: |
+          git checkout staging
+          git rebase main
+      - name: Force push
         run: |
           git add .
           git push -f origin staging
