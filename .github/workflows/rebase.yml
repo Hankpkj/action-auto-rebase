@@ -15,6 +15,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+      - name: git config
+        env: 
+          MY_EMAIL: ${{ secrets.EMAIL }} 
+          MY_NAME: ${{ secrets.NAME }}
+        run:   
+          git config --global user.email $MY_EMAIL
+          git config --global user.name $MY_NAME
       - name: checkout staging
         run: git checkout staging
       - name: rebase main
