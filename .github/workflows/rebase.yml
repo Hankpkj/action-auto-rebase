@@ -6,12 +6,9 @@ on:
 jobs:
 
   rebase:
-    
     name: Rebase
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: staging
+    if: github.repository == 'staging'
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
