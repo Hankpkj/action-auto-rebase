@@ -12,7 +12,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Git fetch
         run: |
-          git checkout main
           git fetch -all
           git checkout staging
           git rebase origin/main
