@@ -16,8 +16,8 @@ jobs:
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: Git config
         env:
-          NAME: "${GITHUB_ACTOR}"
-          EMAIL: ${{github.head_commit.author.email}}
+          NAME: ${GITHUB_ACTOR}
+          EMAIL: ${{ github.head_commit.author.email }}
         run: |
           git config --global user.email $EMAIL
           git config --global user.name $NAME
