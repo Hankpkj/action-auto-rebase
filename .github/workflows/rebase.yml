@@ -1,25 +1,19 @@
 name: Automatic Rebase
 on:
-  push:
-    branches: [ main ]
-
+  issue_comment:
+    types: [created]
 jobs:
   rebase:
     name: Rebase
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
-      - name: Set up config
-        run: |
-          git config user.name hankpkj
-          git config user.email hankpkj@gmail.com
-      - name: Git fetch
-        run: git fetch
-      - name: Git checkout staging
-        run: git checkout origin/staging
-      - name: Git force pull
-        run: git reset --hard origin/main
-      - name: Git push
-        run: |
-          git push -f origin staging
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+      - name: Automatic Rebase
+        uses: cirrus-actions/rebase@1.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
