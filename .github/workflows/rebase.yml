@@ -19,7 +19,7 @@ jobs:
         env: 
           MY_EMAIL: ${{ secrets.EMAIL }} 
           MY_NAME: ${{ secrets.NAME }}
-        run:   
+        run: |  
           git config --global user.email $MY_EMAIL
           git config --global user.name $MY_NAME
       - name: checkout staging
