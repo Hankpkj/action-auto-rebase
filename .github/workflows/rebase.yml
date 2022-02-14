@@ -7,7 +7,6 @@ jobs:
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
-    if: ${{ job.status }} == "success"
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
