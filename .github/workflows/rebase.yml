@@ -19,8 +19,8 @@ jobs:
           NAME: "${GITHUB_ACTOR}"
           EMAIL: "${{github.head_commit.author.email}}"
         run: |
-          git config --global user.email $NAME
-          git config --global user.name $EMAIL
+          git config --global user.email $EMAIL
+          git config --global user.name $NAME
       - name: Rebase main
         run: |
           git checkout staging
