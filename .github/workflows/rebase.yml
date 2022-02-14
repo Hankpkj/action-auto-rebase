@@ -16,9 +16,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: checkout staging
-        run: |
-          git checkout staging
-          git rebase main
+        run: git checkout staging
+      - name: rebase main
+        run: git rebase main
+      - name: push
           git add .
           git commit -m "rebase main"
           git push -f origin staging
