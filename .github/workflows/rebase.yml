@@ -1,0 +1,24 @@
+name: Automatic Rebase
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  rebase:
+    name: Rebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the latest code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+      - name: Automatic Rebase
+        uses: cirrus-actions/rebase@1.5
+      - name: Git fetch
+        run: |
+          git checkout main
+          git fetch -all
+          git checkout staging
+          git rebase origin/main
+          git push -f origin staging
