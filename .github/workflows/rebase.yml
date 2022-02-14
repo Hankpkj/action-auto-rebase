@@ -1,6 +1,6 @@
 name: Automatic Rebase
-on:
-  push: 
+on: 
+  push:
     branches:
       - "main"
 jobs:
@@ -8,14 +8,19 @@ jobs:
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
-    if: github.repository == 'staging'
+    
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
-      - name: Automatic Rebase
-        uses: cirrus-actions/rebase@1.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: checkout staging
+        run: git checkout staging
+      - name: rebase main
+        run: git rebase main
+      - name: push
+        run: |
+          git add .
+          git commit -m "rebase main"
+          git push -f origin staging
