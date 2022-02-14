@@ -29,5 +29,4 @@ jobs:
       - name: push
         run: |
           git add .
-          git commit -m "rebase main"
           git push -f origin staging
