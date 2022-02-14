@@ -8,7 +8,7 @@ jobs:
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
-    if: github.repository == 'staging'
+    # if: github.repository == 'staging'
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
@@ -19,3 +19,4 @@ jobs:
         uses: cirrus-actions/rebase@1.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branches: "staging"
