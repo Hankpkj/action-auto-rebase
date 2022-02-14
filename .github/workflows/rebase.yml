@@ -10,6 +10,10 @@ jobs:
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
+      - name: Set up config
+        run: |
+          git config user.name hankpkj
+          git config user.email hankpkj@gmail.com
       - name: Git fetch
         run: git fetch
       - name: Git checkout staging
