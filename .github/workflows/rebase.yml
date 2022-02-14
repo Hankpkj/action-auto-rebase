@@ -18,10 +18,10 @@ jobs:
         run: git fetch
       - name: Git checkout staging
         run: git checkout origin/staging
-      - name: Git reabse
-        run: git rebase origin/main
+      - name: Git force pull
+        run: git reset --hard origin/main
       - name: Git push
         run: |
           git add .
-          git commit -m "complete rebase"
+          git commit -m "push current main branch content"
           git push -f origin staging
