@@ -1,14 +1,13 @@
 name: Automatic Rebase
-on: 
+on:
   push:
     branches:
       - "main"
 jobs:
-
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
-    
+    if: ${{ github.job.status }} == "success"
     steps:
       - name: Checkout the latest code
         uses: actions/checkout@v2
@@ -16,12 +15,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: git config
-        env: 
-          MY_EMAIL: ${{ secrets.EMAIL }} 
-          MY_NAME: ${{ secrets.NAME }}
-        run: |  
-          git config --global user.email $MY_EMAIL
-          git config --global user.name $MY_NAME
+        # env:
+        #   MY_EMAIL: ${{ secrets.EMAIL }}
+        #   MY_NAME: ${{ secrets.NAME }}
+        run: |
+          git config --global user.email "${GITHUB_ACTOR}"
+          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: checkout staging
         run: git checkout staging
       - name: rebase main
