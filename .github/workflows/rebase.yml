@@ -26,5 +26,4 @@ jobs:
           git rebase main
       - name: Force push
         run: |
-          git add .
           git push -f origin staging
